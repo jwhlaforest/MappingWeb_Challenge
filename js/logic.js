@@ -1,6 +1,5 @@
 var URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
-
 // Marker size depending on magnitude
 function markerSize(magnitude) {
   return magnitude * 5;
@@ -21,7 +20,6 @@ function markerColour(magnitude) {
     case magnitude >= 2.0:
       return 'green';
       break;
-  
     case magnitude >= 1.0:
       return 'blue';
       break; 
@@ -34,14 +32,14 @@ function markerColour(magnitude) {
 d3.json(URL, function(data) {
   markers(data.features);
   console.log(data);
-})
+});
 
 // Marker creation
 function markers(earthquakeData) {
   function onMarker(feature, layer) {
     layer.bindPopup("<h3>Magnitude: " + feature.properties.mag + "</h3><h3>Location: " + feature.properties.place + 
       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
-  }
+  };
 
   var earthquakes = L.geoJSON(earthquakeData, {
     pointToLayer: function (feature, latlng) {
@@ -58,7 +56,7 @@ function markers(earthquakeData) {
   });
 
   createMap(earthquakes);
-}
+};
 
 // Map creation
 function createMap(earthquakes) {
